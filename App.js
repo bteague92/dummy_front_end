@@ -1,11 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Login from './components/login';
+import userReducers from './reducers/user';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
+let store = createStore(combineReducers({ userReducers }));
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Provider store={store} >
+      <View style={styles.container}>
+        <Login />
+      </View>
+    </Provider>
   );
 }
 
