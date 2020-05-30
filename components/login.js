@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, TouchableHighlight, Text } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, Text } from 'react-native';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux/native';
+import { connect } from 'react-redux';
 import * as Actions from '../actions';
 
 const mapStateToProps = (state) => {
@@ -14,19 +14,25 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(Actions, dispatch);
 }
 
-const loginButtonPress = () => {
+const Login = (props) => {
 
-    const login = () => {
+    const loginButtonPress = () => {
         props.login({ username: 'username', password: 'password' })
+    }
+
+    const logoutButtonPress = () => {
+        props.logout()
     }
 
     return (
         <View style={styles.container}>
-            <Text>{state.userReducers.user.loggedIn}</Text>
-            {
-                !props.user.loggedIn &&
+            <Text>{props.user.loggedIn ? "logged in" : "not logged in"}</Text>
+            {props.user.loggedIn ?
+                <TouchableHighlight onPress={logoutButtonPress}>
+                    <Text>Log Out</Text>
+                </TouchableHighlight> :
                 <TouchableHighlight onPress={loginButtonPress}>
-                    <Text>Log In</Text>
+                    <Text>Log in</Text>
                 </TouchableHighlight>
             }
         </View>
